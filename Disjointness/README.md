@@ -2,7 +2,51 @@
 
 An experiment in formalizing the information-complexity proof of the randomized communication lower bound for set disjointness, with Codex carrying out most of the work and the human researcher auditing the results.
 
-**Status:** planning only. No Lean project, definitions, or proofs have been implemented or checked in this directory yet. This README records the proposed scope and workflow; it is not evidence of a completed formalization.
+**Status (2026-10-14): Phases 1–2 complete.** The pinned Lean project builds, seven dependency-integration
+results are checked, and the protocol structure, zero-error example, transcript factorization,
+and leaf bounds are proved. The DISJ lower bound
+is **not proved**. See [current status](docs/status.md), [blueprint](docs/blueprint.md), and
+[audit record](docs/audit.md).
+
+## Build and inspect
+
+Install [elan](https://github.com/leanprover/elan#installation), then run from this directory:
+
+```sh
+lake exe cache get
+lake --wfail build
+lake lean Audit.lean
+```
+
+The checked-in `lean-toolchain` selects Lean **v4.35.0-rc4**. The Lake configuration pins PFR
+at `4c56de547b2f33b0bc47b92f3bfbcebc6457a776`; `lake-manifest.json` pins all transitive
+dependencies, including mathlib at `a37dcbd570ffe4283df24efc20b144a09cc3661e`.
+The first command downloads dependency sources as needed and mathlib's compiled cache.
+The build also compiles the imported PFR entropy modules. No dependency upgrade is needed.
+
+For a clean rebuild of this project's files while retaining dependency caches:
+
+```sh
+lake clean disjointness
+lake --wfail build
+lake lean Audit.lean
+```
+
+The clean project rebuild and axiom inspection were run successfully; their outputs are
+[clean-build.log](docs/clean-build.log) and [axioms.log](docs/axioms.log). The latest incremental
+build is also recorded in [build.log](docs/build.log). A fresh-machine/source-only
+reproduction remains part of the final audit. The 3187 reported build jobs include dependency
+and cached jobs, not 3187 newly proved project results.
+
+| File | What it currently supplies |
+| --- | --- |
+| `Disjointness/Integration.lean` | Seven proved entropy/KL integration results |
+| `Disjointness/Protocol.lean` | Local binary trees, execution, independent seed laws, pointwise error, tree-depth cost |
+| `Disjointness/Tree.lean` | Public decoding, rectangle property, execution-length and leaf-count bounds |
+| `Disjointness/Factorization.lean` | Fixed-seed and joint transcript factorization; support/cost bounds |
+| `Disjointness/SendInput.lean` | An actual zero-error DISJ protocol of cost `n+1`, including its output bit |
+| `Disjointness/Target.lean` | DISJ definition and the named, **unproved** proposition `FiniteLowerBoundClaim` |
+| `Audit.lean` | Target printing and transitive axiom inspection |
 
 ## Purpose and working arrangement
 
@@ -12,7 +56,7 @@ Codex will select and document representations, inspect dependencies, develop th
 
 Routine implementation decisions should proceed autonomously once implementation is authorized. A material change to the target theorem, its assumptions, or the experiment's resource boundary should be surfaced explicitly. Phase boundaries are reporting and audit checkpoints, not automatic requests for permission to continue.
 
-This planning step creates the README only. Implementation will begin after discussion of the plan.
+Implementation began after the plan/settings discussion and the user's elan installation.
 
 ## Mathematical target
 
@@ -175,7 +219,7 @@ The following are outside the initial experiment: the corruption proof, optimal 
 
 ## Progress and audit records
 
-Create supporting records as work begins:
+Supporting records:
 
 | Record | Purpose |
 | --- | --- |
@@ -185,7 +229,7 @@ Create supporting records as work begins:
 | `docs/experiment-log.md` | Resource observations, human interventions, and failed or successful approaches |
 | `docs/audit.md` | Statement review, axiom inspection, reproduction results, and known limitations |
 
-These are planned files, not existing evidence. Keep records concise and update them at meaningful milestones rather than after every tactic edit.
+These files now exist. Keep records concise and update them at meaningful milestones rather than after every tactic edit.
 
 Each milestone report should state what now compiles, what mathematical claim it establishes, what remains unproved, and which decisions affect the human audit. Distinguish a fully proved theorem, a theorem conditional on named hypotheses, and a target statement awaiting proof.
 
@@ -213,4 +257,5 @@ Generated code volume, raw theorem counts, or a compiling file with the central 
 - [PFR entropy documentation](https://teorth.github.io/pfr/docs/PFR/ForMathlib/Entropy/Basic.html) and [PFR repository](https://github.com/teorth/pfr). Candidate source of Shannon entropy, conditional entropy, mutual information, and conditional-information identities.
 - [mathlib KL-divergence documentation](https://leanprover-community.github.io/mathlib4_docs/Mathlib/InformationTheory/KullbackLeibler/Basic.html) and [mathlib repository](https://github.com/leanprover-community/mathlib4). Candidate source of probability and analytic foundations.
 
-Dependency availability was inspected during planning, but build compatibility and suitability for this project remain Phase 1 obligations. Pin the revisions actually used rather than relying on moving documentation pages.
+Build compatibility and the initial entropy interfaces were checked in Phase 1. Revisions actually
+used are pinned in the project; the documentation links above may describe different revisions.

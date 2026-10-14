@@ -5,3 +5,7 @@
 .env
 .env.*
 !.env.example
+.tools/
+Disjointness/blueprint/web/
+Disjointness/blueprint/print/
+Disjointness/.explore/

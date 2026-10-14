@@ -1,0 +1,40 @@
+def Disjointness.FiniteLowerBoundClaim : Prop :=
+∃ a,
+  0 < a ∧
+    ∃ n₀,
+      ∀ (n : ℕ),
+        n₀ ≤ n →
+          ∀ (R SA SB : Type) (x : Fintype R) (x_1 : Fintype SA) (x_2 : Fintype SB)
+            (p : Disjointness.Protocol (Disjointness.Bits n) (Disjointness.Bits n) R SA SB),
+            p.Correct Disjointness.disj (1 / 3) → a * ↑n ≤ ↑p.cost
+'Disjointness.Integration.pmf_chain_rule' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Integration.pmf_condMutualInfo_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Integration.pmf_condMutualInfo_le_log_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Integration.pmf_condMutualInfo_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Integration.pmf_condEntropy_pair_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Integration.pmf_condMutualInfo_bitvec_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Integration.pmf_klDiv_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Tree.run' does not depend on any axioms
+'Disjointness.Protocol.Correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Tree.depth_comap' depends on axioms: [propext]
+'Disjointness.Tree.run_comap' depends on axioms: [propext]
+'Disjointness.Tree.decode_run' depends on axioms: [propext]
+'Disjointness.Tree.run_length_le_depth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Tree.run_mem_leafPaths' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Tree.card_leafPaths_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Tree.run_transcript_eq_iff' depends on axioms: [propext]
+'Disjointness.Tree.transcript_cross' depends on axioms: [propext]
+'Disjointness.Protocol.viewLaw_eq_bind_private' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.viewLaw_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.privateTranscriptLaw_factorization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.viewLaw_factorization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.privateTranscriptLaw_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.depth_le_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.run_length_le_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.card_leafPaths_le_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.SendInput.depth_tree' depends on axioms: [propext]
+'Disjointness.SendInput.output_tree' depends on axioms: [propext, Quot.sound]
+'Disjointness.sendInputProtocol_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.sendInputProtocol_outputLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.sendInputProtocol_correct' depends on axioms: [propext, Classical.choice, Quot.sound]

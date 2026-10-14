@@ -1,0 +1,13 @@
+name = "docbuild"
+reservoir = false
+version = "0.1.0"
+packagesDir = "../.lake/packages"
+
+[[require]]
+name = "disjointness"
+path = ".."
+
+[[require]]
+name = "doc-gen4"
+git = "https://github.com/leanprover/doc-gen4.git"
+rev = "fd5ce8f50b90096067f4e5d867611b585e951dbb"

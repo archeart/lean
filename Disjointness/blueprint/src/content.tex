@@ -1,0 +1,65 @@
+\input{../../.lake/build/blueprint/library/Blueprint}
+
+\section{What is checked}
+This is a starter map of the existing development. The LeanArchitect nodes below
+are extracted from the metadata in \texttt{Blueprint.lean}. The protocol
+definitions, structural lemmas, example protocol, and entropy adapters are
+checked. The randomized linear lower bound for DISJ remains unproved.
+
+Use the dependency graph to select a node and follow its Lean link to the
+searchable API documentation. The longer mathematical plan remains in
+\texttt{docs/blueprint.md}; the current audit is in \texttt{docs/status.md} and
+\texttt{docs/audit.md}. An automatically inferred edge records a formal
+dependency, while the planned nodes at the end record the intended proof route.
+
+\section{Definitions}
+\inputleannode{def:tree}
+\inputleannode{def:execution}
+\inputleannode{def:protocol}
+\inputleannode{def:correct}
+\inputleannode{def:cost}
+\inputleannode{def:disj}
+
+\section{Verified structural results}
+\inputleannode{thm:decode}
+\inputleannode{thm:rectangle}
+\inputleannode{thm:leaves}
+\inputleannode{thm:factorization}
+\inputleannode{thm:support}
+\inputleannode{thm:example}
+\inputleannode{thm:entropy}
+
+\section{Planned lower-bound argument}
+The following are informal proof obligations, not Lean axioms or checked
+theorems. Here $J(\Pi)=I((X,Y);T\mid D,R)$ denotes the intended conditional
+information cost under the switch distribution in the mathematical plan.
+That protocol information cost has not yet been defined in Lean.
+
+\begin{lemma}[Communication information bound: unproved]
+\label{goal:upper}
+\uses{thm:support,thm:entropy,def:cost}
+For the intended input distribution,
+$J(\Pi)\leq \operatorname{cost}(\Pi)\log 2$.
+Public randomness is conditioned on and must not be charged as communication.
+\end{lemma}
+
+\begin{lemma}[Linear information bound: unproved]
+\label{goal:lower}
+\uses{thm:factorization,thm:entropy,def:correct,def:disj}
+There is an absolute $\kappa>0$ such that every protocol computing DISJ with
+pointwise error at most $1/3$ satisfies $J(\Pi)\geq\kappa n$.
+The missing steps include the switch distribution, Hellinger inequalities,
+the AND bound, coordinate decomposition, and actual coordinate embeddings.
+\end{lemma}
+
+\begin{theorem}[Finite-model DISJ lower bound: unproved]
+\label{goal:target}
+\lean{Disjointness.FiniteLowerBoundClaim}
+\uses{goal:upper,goal:lower}
+There exist absolute $a>0$ and $n_0$ such that, for every $n\geq n_0$,
+every protocol in the finite seed tree model computing DISJ with pointwise
+error at most $1/3$ has communication cost at least $an$.
+The linked Lean declaration only defines this target proposition; it does
+not prove it. Coverage of conventional public-coin protocols additionally
+requires the normalization and output-overhead bridges in the audit.
+\end{theorem}

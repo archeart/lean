@@ -1,0 +1,35 @@
+name = "disjointness"
+version = "0.1.0"
+defaultTargets = ["Disjointness"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+warn.sorry = true
+
+[[require]]
+name = "PFR"
+git = "https://github.com/teorth/pfr.git"
+rev = "4c56de547b2f33b0bc47b92f3bfbcebc6457a776"
+
+[[require]]
+name = "LeanArchitect"
+git = "https://github.com/hanwenzhu/LeanArchitect.git"
+rev = "f45833e26c68aa947044145184f8881a75392e30"
+
+# Keep the existing mathlib-compatible revisions when adding documentation tools.
+[[require]]
+name = "batteries"
+git = "https://github.com/leanprover-community/batteries"
+rev = "b71aaf60877e673fdb921f06f20987d12ee8a290"
+
+[[require]]
+name = "Cli"
+git = "https://github.com/leanprover/lean4-cli"
+rev = "82c11b9717083154aefc5fe8d4cba4bbf046298f"
+
+[[lean_lib]]
+name = "Disjointness"
+
+[[lean_lib]]
+name = "Blueprint"
