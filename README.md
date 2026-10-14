@@ -4,6 +4,6 @@ Experiments in AI-assisted mathematical formalization using Lean, with human aud
 
 ## Projects
 
-- [Disjointness](Disjointness/README.md): formalize the information-complexity proof of the randomized communication lower bound for set disjointness. Phases 1–2 are complete: pinned dependencies, a proof blueprint, checked protocol definitions, a zero-error example, transcript factorization, and leaf bounds. The lower bound remains unproved.
+- [Disjointness](Disjointness/README.md): a checked Lean formalization of the BJKS information argument for the linear randomized DISJ lower bound. Phases 1–7 are complete for the stated public-output tree models, including exact embeddings, reachable-length normalization, arbitrary measurable random-tape spaces, and an axiom audit.
 
 Each project will document its own Lean toolchain, dependencies, build instructions, and verified results as implementation proceeds.

@@ -1,0 +1,506 @@
++ lake build Disjointness:docs
+ℹ [194/504] Replayed «doc-gen4»/bibPrepass
+info: stdout:
+INFO: reference page disabled
+ℹ [195/504] Replayed «doc-gen4»/coreDocs
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Std.Time.DateTime.weekOfYear: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Std.Time.PlainDateTime.weekday: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Std.Time.PlainDateTime.weekYear: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Std.Time.PlainDateTime.weekOfYear: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Lake.Toml.Value.decodeValueArray: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lake.Toml.Value.decodeDateTime: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lake.Toml.Value.decodeTable: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lake.lowerHexUInt64: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lake.Toml.Value.decodeBool: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lake.Toml.Value.decodeInt: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lake.Toml.Value.decodeFloat: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lake.Toml.Value.decodeString: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lake.Toml.Value.decodeNat: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Lean.Elab.Command.elabElabRulesAux: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Compiler.LCNF.CodeDecl.collectUsed: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Elab.ConfigEval.ensureEvalTerm: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Meta.simpHaveTelescope: failed to generate equational theorem for `Lean.Meta.simpHaveTelescope`
+m : Type → Type
+inst : Monad m
+inst_1 : MonadLiftT Lean.MetaM m
+inst_2 : MonadControlT Lean.MetaM m
+inst_3 : Lean.Meta.MonadSimp m
+e : Lean.Expr
+⊢ (do
+      let info ← liftM (Lean.Meta.getHaveTelescopeInfo e)
+      if (!info.haveInfo.isEmpty) = true then do
+          let __x ← liftM (info.computeFixedUsed true)
+          let r ← Lean.Meta.simpHaveTelescopeAux✝ info __x.fst __x.snd e 0 (Array.mkEmpty info.haveInfo.size)
+          liftM (Lean.Meta.SimpHaveResult.toResult✝ info.level e r true)
+        else
+          panicWithPosWithDecl "Lean.Meta.HaveTelescope" "Lean.Meta.simpHaveTelescope" 456 2
+            ("assertion violation: " ++ "!info.haveInfo.isEmpty\n  ")) =
+    do
+    let info ← liftM (Lean.Meta.getHaveTelescopeInfo e)
+    if (!info.haveInfo.isEmpty) = true then do
+        let __x ← liftM (info.computeFixedUsed false)
+        let r ← Lean.Meta.simpHaveTelescopeAux✝ info __x.fst __x.snd e 0 (Array.mkEmpty info.haveInfo.size)
+        liftM (Lean.Meta.SimpHaveResult.toResult✝ info.level e r true)
+      else
+        panicWithPosWithDecl "Lean.Meta.HaveTelescope" "Lean.Meta.simpHaveTelescope" 456 2
+          ("assertion violation: " ++ "!info.haveInfo.isEmpty\n  ")
+WARNING: Failed to calculate equational lemmata for Lean.Doc.leanRole: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.PrettyPrinter.Delaborator.SubExpr.withBoundedAppFnArgs: failed to generate equational theorem for `Lean.PrettyPrinter.Delaborator.SubExpr.withBoundedAppFnArgs`
+  no progress at goal
+  α : Type
+  m : Type → Type
+  inst✝² : Monad m
+  inst✝¹ : MonadReaderOf Lean.SubExpr m
+  inst✝ : MonadWithReaderOf Lean.SubExpr m
+  maxArgs : Nat
+  xf : m α
+  xa : α → m α
+  r : Nat.below maxArgs :=
+    (Nat.brecOn.go maxArgs (Lean.PrettyPrinter.Delaborator.SubExpr.withBoundedAppFnArgs._f xf xa)).2
+  ⊢ (do
+        let __do_lift ← Lean.PrettyPrinter.Delaborator.SubExpr.getExpr
+        (match (motive := (maxArgs : Nat) → Lean.Expr → Nat.rec PUnit (fun n n_ih => m α ×' n_ih) maxArgs → m α)
+              maxArgs, __do_lift with
+            | maxArgs'.succ, fn.app arg => fun x => do
+              let acc ← Lean.PrettyPrinter.Delaborator.SubExpr.withAppFn x.1
+              Lean.PrettyPrinter.Delaborator.SubExpr.withAppArg (xa acc)
+            | x, x_1 => fun x => xf)
+            r) =
+      do
+      let __do_lift ← Lean.PrettyPrinter.Delaborator.SubExpr.getExpr
+      match maxArgs, __do_lift with
+        | maxArgs'.succ, fn.app arg => do
+          let acc ←
+            Lean.PrettyPrinter.Delaborator.SubExpr.withAppFn
+                (Lean.PrettyPrinter.Delaborator.SubExpr.withBoundedAppFnArgs maxArgs' xf xa)
+          Lean.PrettyPrinter.Delaborator.SubExpr.withAppArg (xa acc)
+        | x, x_1 => xf
+WARNING: Failed to calculate equational lemmata for Lean.Elab.ConfigEval.ConfigItem.throwInvalidOption: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Elab.ConfigEval.ensureEvalExpr: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Elab.Term.mkCoe: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Elab.ConfigEval.evalMetaEval: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Elab.ConfigEval.ConfigItem.throwCannotSetOption: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Meta.Grind.pushNot: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Server.Completion.dotIdCompletion: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Syntax.asNode: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.CodeAction.holeCodeActionProvider: failed to generate equality theorems for `match` expression `_private.Lean.Server.CodeActions.Provider.0.Lean.CodeAction.holeCodeActionProvider.match_7`
+case isTrue
+motive✝ : Array (Lean.Elab.ContextInfo × Lean.Elab.TermInfo) → Sort u_1
+x✝¹ : Array (Lean.Elab.ContextInfo × Lean.Elab.TermInfo)
+h_1✝ : (ctx : Lean.Elab.ContextInfo) → (info : Lean.Elab.TermInfo) → motive✝ #[(ctx, info)]
+h_2✝ : (x : Array (Lean.Elab.ContextInfo × Lean.Elab.TermInfo)) → motive✝ x
+x✝ : ∀ (ctx : Lean.Elab.ContextInfo) (info : Lean.Elab.TermInfo), x✝¹ = #[(ctx, info)] → False
+h✝ : x✝¹.size = 1
+⊢ (⋯ ▸ fun h => ⋯ ▸ Prod.casesOn (x✝¹.getLit 0 ⋯ ⋯) fun fst snd => h_1✝ fst snd) ⋯ = h_2✝ x✝¹
+WARNING: Failed to calculate equational lemmata for Lean.Elab.Tactic.evalGrindCore: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Meta.Tactic.TryThis.addRewriteSuggestion: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Level.collectMVars: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Lean.Elab.ConfigEval.deriveEvalExprUsingMetaEval: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+ℹ [3433/5431] Replayed importGraph/ImportGraph.Tools.FindHome:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Lean.Name.findHome: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+ℹ [3654/5431] Replayed mathlib/Mathlib.Tactic.MkIffOfInductiveProp:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.MkIff.nCasesSum: failed to generate equational theorem for `Mathlib.Tactic.MkIff.nCasesSum`
+  failed to generate equality theorems for `match` expression `_private.Mathlib.Tactic.MkIffOfInductiveProp.0.Mathlib.Tactic.MkIff.nCasesSum.match_4`
+  case isTrue
+  motive✝ : Array Lean.Meta.CasesSubgoal → Sort u_1
+  x✝¹ : Array Lean.Meta.CasesSubgoal
+  h_1✝ : (sg1 sg2 : Lean.Meta.CasesSubgoal) → motive✝ #[sg1, sg2]
+  h_2✝ : (x : Array Lean.Meta.CasesSubgoal) → motive✝ x
+  x✝ : ∀ (sg1 sg2 : Lean.Meta.CasesSubgoal), x✝¹ = #[sg1, sg2] → False
+  h✝ : x✝¹.size = 2
+  ⊢ (⋯ ▸ fun h => ⋯ ▸ h_1✝ (x✝¹.getLit 0 ⋯ ⋯) (x✝¹.getLit 1 ⋯ ⋯)) ⋯ = h_2✝ x✝¹
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.MkIff.nCasesProd: failed to generate equational theorem for `Mathlib.Tactic.MkIff.nCasesProd`
+  failed to generate equality theorems for `match` expression `_private.Mathlib.Tactic.MkIffOfInductiveProp.0.Mathlib.Tactic.MkIff.nCasesProd.match_5`
+  case isTrue
+  motive✝ : Array Lean.Meta.CasesSubgoal → Sort u_1
+  x✝¹ : Array Lean.Meta.CasesSubgoal
+  h_1✝ : (sg : Lean.Meta.CasesSubgoal) → motive✝ #[sg]
+  h_2✝ : (x : Array Lean.Meta.CasesSubgoal) → motive✝ x
+  x✝ : ∀ (sg : Lean.Meta.CasesSubgoal), x✝¹ = #[sg] → False
+  h✝ : x✝¹.size = 1
+  ⊢ (⋯ ▸ fun h => ⋯ ▸ h_1✝ (x✝¹.getLit 0 ⋯ ⋯)) ⋯ = h_2✝ x✝¹
+ℹ [3747/5431] Replayed Qq/Qq.MatchImpl:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Qq.Impl.mkIsDefEqResult: failed
+WARNING: Failed to obtain information for: Qq.Impl.mkLambdaQ: failed
+ℹ [3748/5431] Replayed Qq/Qq.Match:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Qq.Impl.makeMatchCode: failed
+WARNING: Failed to obtain information for: Qq.Impl.withLetHave: failed
+WARNING: Failed to calculate equational lemmata for Qq.Impl.mkQqLets: failed
+ℹ [3823/5431] Replayed mathlib/Mathlib.Tactic.ErwQuestion:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.Erw?.logDiffs: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+ℹ [4161/6589] Replayed mathlib/Mathlib.Tactic.NormNum.Result:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.mkRawRatLit: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.mkRawIntLit: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.Result.isInt: unquoteExpr: match z with
+| fn.app a => a
+| x => panicWithPosWithDecl "Lean.Expr" "Lean.Expr.appArg!" 936 15 "application expected" : Lean.Expr
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.Result.isRat: unquoteExpr: match n with
+| fn.app a => a
+| x => panicWithPosWithDecl "Lean.Expr" "Lean.Expr.appArg!" 936 15 "application expected" : Lean.Expr
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.Result.eqTrans: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.Result.toRawEq: failed
+ℹ [4163/6589] Replayed mathlib/Mathlib.Tactic.Positivity.Core:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.compareHyp: unquoteExpr: __result.1 : Lean.Expr
+ℹ [4348/6589] Replayed mathlib/Mathlib.Tactic.NormNum.Basic:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.Result.sub: Tactic `simp` failed with a nested error:
+(deterministic) timeout at `simp`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.Result.add: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.Result.mul: (deterministic) timeout at `whnf`, maximum number of heartbeats (5000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+ℹ [4349/6589] Replayed mathlib/Mathlib.Tactic.NormNum.Inv:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.evalNNRatCast: unquoteExpr: __result.1 : Lean.Expr
+ℹ [4350/6589] Replayed mathlib/Mathlib.Tactic.NormNum.Pow:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.evalIntPow: unquoteExpr: match a with
+| fn.app a => a
+| x => panicWithPosWithDecl "Lean.Expr" "Lean.Expr.appArg!" 936 15 "application expected" : Lean.Expr
+ℹ [4358/6589] Replayed mathlib/Mathlib.Tactic.Ring.Basic:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.Ring.ExProd.mkNegNat: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.Ring.evalCast: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.Ring.RingCompute.pow: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.Ring.ExProd.mkNat: failed
+ℹ [4365/6589] Replayed mathlib/Mathlib.Algebra.Order.BigOperators.Ring.Finset:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalFinsetProd: unquoteExpr: __result.2.1 : Lean.Expr
+ℹ [4439/6589] Replayed mathlib/Mathlib.Tactic.Positivity.Basic:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalNatCast: unquoteExpr: __result.2.1 : Lean.Expr
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalPosPart: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalIntCast: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalNegPart: failed
+ℹ [4452/6589] Replayed mathlib/Mathlib.Tactic.FieldSimp:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.FieldSimp.reduceProp: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.FieldSimp.reduceExpr: failed
+ℹ [4461/6589] Replayed mathlib/Mathlib.Tactic.Linarith.Verification:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Qq.ofNatQ: failed
+ℹ [4465/6589] Replayed mathlib/Mathlib.Data.Rat.Cast.Order:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalNNRatCast: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalRatCast: failed
+ℹ [4466/6589] Replayed mathlib/Mathlib.Tactic.NormNum.Abs:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.evalAbs: failed
+ℹ [4473/6589] Replayed mathlib/Mathlib.Algebra.Order.Floor.Ring:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalNatCeil: unquoteExpr: __result.2.1 : Lean.Expr
+ℹ [4475/6589] Replayed mathlib/Mathlib.Data.Rat.Floor:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Rat.evalIntFract: unquoteExpr: __result.1 : Lean.Expr
+WARNING: Failed to calculate equational lemmata for Rat.evalIntCeil: unquoteExpr: __result.2.1 : Lean.Expr
+WARNING: Failed to calculate equational lemmata for Rat.evalIntFloor: unquoteExpr: __result.2.1 : Lean.Expr
+WARNING: Failed to calculate equational lemmata for Rat.evalRound: unquoteExpr: __result.2.1 : Lean.Expr
+ℹ [4540/6589] Replayed mathlib/Mathlib.Data.Fin.VecNotation:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for PiFin.toExpr: failed
+ℹ [4692/6589] Replayed mathlib/Mathlib.Tactic.Order.ToInt:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.Order.ToInt.translateToInt: failed
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.Order.ToInt.mkFinFun: failed
+ℹ [5008/6589] Replayed mathlib/Mathlib.Data.Multiset.Sort:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Multiset.instToExprOfToLevel: failed
+ℹ [5018/6589] Replayed mathlib/Mathlib.Algebra.Order.BigOperators.Expect:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalFinsetExpect: unquoteExpr: __result.2.2.1 : Lean.Expr
+ℹ [5047/6589] Replayed mathlib/Mathlib.Tactic.NormNum.BigOperators:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.Result.eq_trans: failed
+ℹ [5060/6589] Replayed mathlib/Mathlib.Algebra.Order.Algebra:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalAlgebraMap: unquoteExpr: __result.2.1 : Lean.Expr
+ℹ [5065/6589] Replayed mathlib/Mathlib.Tactic.Peel:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Tactic.Peel.peelArgsIff: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.(invalid MessageData.lazy, missing context)
+ℹ [5162/6589] Replayed mathlib/Mathlib.Tactic.Positivity.Finset:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalFinsetSum: unquoteExpr: __result.2.1 : Lean.Expr
+ℹ [5206/6589] Replayed mathlib/Mathlib.Topology.MetricSpace.Pseudo.Defs:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalDist: unquoteExpr: __result.2.1 : Lean.Expr
+ℹ [5264/6589] Replayed mathlib/Mathlib.Analysis.Normed.Group.Basic:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalMulNorm: unquoteExpr: __result.2.1 : Lean.Expr
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalAddNorm: unquoteExpr: __result.2.1 : Lean.Expr
+ℹ [5320/6589] Replayed mathlib/Mathlib.Topology.Algebra.InfiniteSum.Order:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalTsum: failed
+ℹ [5546/6589] Replayed mathlib/Mathlib.Data.Fin.Tuple.Reflection:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Fin.sum_univ_ofNat: unquoteExpr: __result.1 : Lean.Expr
+WARNING: Failed to calculate equational lemmata for Fin.prod_univ_ofNat: unquoteExpr: __result.1 : Lean.Expr
+ℹ [5669/6589] Replayed mathlib/Mathlib.LinearAlgebra.Matrix.Notation:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Matrix.toExpr: unquoteExpr: inst✝².2 : Lean.Expr
+ℹ [5698/6589] Replayed mathlib/Mathlib.Analysis.SpecialFunctions.Pow.Real:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.proveIsNatRPowIsNNRat: failed
+ℹ [5699/6589] Replayed mathlib/Mathlib.Analysis.SpecialFunctions.Pow.NNReal:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.NormNum.proveIsNatNNRealRPowIsNNRat: failed
+ℹ [6412/6594] Replayed mathlib/Mathlib.MeasureTheory.Integral.Bochner.Basic:docInfo
+info: stdout:
+WARNING: Failed to calculate equational lemmata for Mathlib.Meta.Positivity.evalIntegral: unquoteExpr: __result.2.1 : Lean.Expr
+✔ [6572/6596] Built disjointness/Disjointness.Protocol:docInfo (9.9s)
+✔ [6573/6596] Built disjointness/Disjointness.Hellinger:docInfo (9.8s)
+✔ [6576/6599] Built disjointness/Disjointness.Target:docInfo (2.1s)
+✔ [6577/6599] Built disjointness/Disjointness.Tree:docInfo (2.1s)
+✔ [6581/6601] Built disjointness/Disjointness.Factorization:docInfo (2.2s)
+✔ [6582/6601] Built disjointness/Disjointness.SendInput:docInfo (2.2s)
+✔ [6583/6601] Built disjointness/Disjointness.Switch:docInfo (2.2s)
+✔ [6586/6603] Built disjointness/Disjointness.InformationCost:docInfo (2.2s)
+✔ [6587/6603] Built disjointness/Disjointness.BinaryInformation:docInfo (2.2s)
+✔ [6590/6603] Built disjointness/Disjointness.ProductReplacement:docInfo (2.1s)
+✔ [6591/6604] Built disjointness/Disjointness.ExecutionConditioning:docInfo (2.1s)
+✔ [6593/6605] Built disjointness/Disjointness.FiniteView:docInfo (1.7s)
+✔ [6595/6607] Built disjointness/Disjointness.ChannelBridge:docInfo (1.7s)
+✔ [6598/6608] Built disjointness/Disjointness.AndLowerBound:docInfo (2.2s)
+✔ [6599/6608] Built disjointness/Disjointness.CoordinateInformation:docInfo (2.2s)
+✔ [6601/6609] Built disjointness/Disjointness.LocalRandomization:docInfo (1.7s)
+✔ [6603/6610] Built disjointness/Disjointness.Embedding:docInfo (1.7s)
+✔ [6605/6611] Built disjointness/Disjointness.EmbeddingInformation:docInfo (1.7s)
+✔ [6607/6612] Built disjointness/Disjointness.LowerBound:docInfo (1.7s)
+✔ [6609/6613] Built disjointness/Disjointness.ReachableCost:docInfo (1.8s)
+✔ [6611/6614] Built disjointness/Disjointness.RandomTape:docInfo (1.7s)
+✔ [6613/6614] Built disjointness/Disjointness:docInfo (1.7s)
+ℹ [6614/6614] Built disjointness/Disjointness:docs (29s)
+info: Generating documentation for Disjointness (1 root modules)
+Build completed successfully (6614 jobs).
++ lake build Blueprint:blueprint Blueprint:blueprintJson
+✔ [3235/3239] Built Blueprint (9.7s)
+✔ [3236/3239] Built disjointness/Blueprint:blueprintJson (2.5s)
+ℹ [3237/3239] Built disjointness/Blueprint:blueprintJson (29ms)
+info: Blueprint indexing
+✔ [3238/3239] Built disjointness/Blueprint:blueprint (13s)
+ℹ [3239/3239] Built disjointness/Blueprint:blueprint (28ms)
+info: Blueprint indexing
+Build completed successfully (3239 jobs).
++ /Users/pei/Local Document/lean/.tools/blueprint/bin/plastex -c plastex.cfg web.tex
+ (loading package /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plasTeX/Packages/article.py
+ )
+ (loading package /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plasTeX/Packages/amssymb.py
+ )
+ (loading package /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plasTeX/Packages/amsthm.py
+ )
+ (loading package /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plasTeX/Packages/amsmath.py
+ )
+ (loading package /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plasTeX/Packages/hyperref.py
+ )
+ (loading package /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/leanblueprint/Packages/blueprint.py
+ (loading package /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plastexdepgraph/Packages/depgraph.py
+ )
+ (loading package /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plastexshowmore/Packages/showmore.py
+ ) ) ( ./content.tex ) ( ../../.lake/build/blueprint/library/Blueprint.tex
+ )
+ ( /Users/pei/Local
+   Document/lean/Disjointness/.lake/build/blueprint/module/Blueprint.tex
+ )........................................
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:tree.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:execution.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:protocol.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:correct.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:cost.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:disj.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:switch.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:information.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:hellinger.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/def:embed.tex
+ )..
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:decode.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:rectangle.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:leaves.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:factorization.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:support.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:example.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:entropy.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:switch.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:conditioning.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:upper.tex
+ )..
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:distances.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:binary.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:view.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:and.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:coordinates.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:embedding.tex
+ )..
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:lower.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:target.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:reachable.tex
+ )
+ ( /Users/pei/Local Document/lean/Disjointness/.lake/build/blueprint/module
+   /Blueprint.artifacts/thm:tapes.tex
+ )
+INFO: Directing output files to directory: ../web/.
+INFO: Importing templates from /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plasTeX/Renderers/PageTemplate
+INFO: Importing templates from /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plasTeX/Renderers/HTML5
+INFO: Using theme /Users/pei/Local
+   Document/lean/.tools/blueprint/lib/python3.12/site-
+   packages/plasTeX/Renderers/HTML5/Themes/default
+ [ index.html
+WARNING: Using default renderer for makeatletter
+WARNING: Using default renderer for providecommand
+WARNING: Using default renderer for makeatother
+WARNING: Using default renderer for gdef
+ ]plasTeX version 3.1
+
++ lake exe checkdecls blueprint/lean_decls

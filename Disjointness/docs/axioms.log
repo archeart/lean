@@ -38,3 +38,181 @@ def Disjointness.FiniteLowerBoundClaim : Prop :=
 'Disjointness.sendInputProtocol_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Disjointness.sendInputProtocol_outputLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Disjointness.sendInputProtocol_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.sum_pmf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.joint_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.joint_eq_bind' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.joint_map_fst' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.joint_fiber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.joint_cond_fst' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.joint_const_toMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.pi_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.pi_toMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.pi_map_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.map_cond_preimage' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.map_equiv_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.indep_pullback' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.iIndep_pullback' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.InformationTools.cond_chain' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.InformationTools.cond_pair_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.InformationTools.condMutualInfo_identDistrib' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.InformationTools.condEntropy_le_of_fiber_support' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Disjointness.InformationTools.condMutualInfo_le_of_fiber_support' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Disjointness.Switch.fair_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.switches_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.switches_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.inputLaw_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.law_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.cond_switch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.inputLaw_indep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.inputLaw_map_coordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.inputLaw_iIndep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.coordinates_condIndep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.players_condIndep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.disj_of_mem_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.law_map_triples' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.law_map_coordinate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.coordinate_input_probabilities' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.switches_iIndep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.switches_map_coordinate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.executionLaw_view' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.executionLaw_indep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.informationCost_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.informationCost_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.informationCost_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.bjksInformationCost_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.bjksInformationCost_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.seedLaw_eq_joint' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.seedLaw_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.executionLaw_regroup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.executionLaw_conditioning' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.conditional_inputLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.conditioning_fiber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.conditional_zero_of_publicLaw_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.bjks_coordinates_condIndep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.bjks_players_condIndep' depends on axioms: [propext, Classical.choice, Quot.sound]
+def Disjointness.Protocol.informationCost.{u_1, u_2, u_3, u_4, u_5, u_6} : {D : Type u_1} →
+  {X : Type u_2} →
+    {Y : Type u_3} →
+      {R : Type u_4} →
+        {SA : Type u_5} →
+          {SB : Type u_6} →
+            [Fintype D] →
+              [Fintype X] →
+                [Fintype Y] →
+                  [Fintype R] →
+                    [Fintype SA] →
+                      [Fintype SB] →
+                        [MeasurableSpace D] →
+                          [MeasurableSpace X] →
+                            [MeasurableSpace Y] →
+                              [MeasurableSpace R] →
+                                [MeasurableSpace SA] →
+                                  [MeasurableSpace SB] → Disjointness.Protocol X Y R SA SB → PMF (D × X × Y) → ℝ :=
+fun {D} {X} {Y} {R} {SA} {SB} [Fintype D] [Fintype X] [Fintype Y] [Fintype R] [Fintype SA] [Fintype SB]
+    [MeasurableSpace D] [MeasurableSpace X] [MeasurableSpace Y] [MeasurableSpace R] [MeasurableSpace SA]
+    [MeasurableSpace SB] p μ =>
+  I[fun s => s.1.2 : p.communicated|Disjointness.Protocol.conditioning;(p.executionLaw μ).toMeasure]
+def Disjointness.Protocol.bjksInformationCost.{u_4, u_5, u_6} : {R : Type u_4} →
+  {SA : Type u_5} →
+    {SB : Type u_6} →
+      [Fintype R] →
+        [Fintype SA] →
+          [Fintype SB] →
+            [MeasurableSpace R] →
+              [MeasurableSpace SA] →
+                [MeasurableSpace SB] →
+                  {n : ℕ} → Disjointness.Protocol (Disjointness.Bits n) (Disjointness.Bits n) R SA SB → ℝ :=
+fun {R} {SA} {SB} [Fintype R] [Fintype SA] [Fintype SB] [MeasurableSpace R] [MeasurableSpace SA] [MeasurableSpace SB]
+    {n} p =>
+  p.informationCost (Disjointness.Switch.law n)
+Disjointness.Protocol.bjksInformationCost_le.{u_4, u_5, u_6} {R : Type u_4} {SA : Type u_5} {SB : Type u_6} [Fintype R]
+  [Fintype SA] [Fintype SB] [MeasurableSpace R] [DiscreteMeasurableSpace R] [MeasurableSpace SA]
+  [DiscreteMeasurableSpace SA] [MeasurableSpace SB] [DiscreteMeasurableSpace SB] {n : ℕ}
+  (p : Disjointness.Protocol (Disjointness.Bits n) (Disjointness.Bits n) R SA SB) :
+  p.bjksInformationCost ≤ ↑p.cost * Real.log 2
+'Disjointness.Hellinger.sqDist_triangle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Hellinger.cut_and_paste' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Hellinger.variation_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Hellinger.event_difference_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Hellinger.sqrt_sub_sq_le_log' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Hellinger.sqDist_le_two_jensenShannon' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Channel.information_eq_entropy' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Channel.information_fair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Channel.information_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.finiteViewLaw_rectangle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.informationCost_eq_channel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.and_information_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+Disjointness.Protocol.and_information_lower_bound.{u_1, u_2, u_3} {R : Type u_1} {SA : Type u_2} {SB : Type u_3}
+  [Fintype R] [Fintype SA] [Fintype SB] [MeasurableSpace R] [DiscreteMeasurableSpace R] [MeasurableSpace SA]
+  [DiscreteMeasurableSpace SA] [MeasurableSpace SB] [DiscreteMeasurableSpace SB]
+  (p : Disjointness.Protocol Bool Bool R SA SB) (hc : p.Correct and (1 / 3)) : 1 / 144 ≤ p.andInformationCost
+'Disjointness.InformationTools.condEntropy_vector_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.InformationTools.sum_mutualInfo_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.sum_coordinateInformation_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.bjksInformationCost_ge_sum_coordinates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Disjointness.Protocol.localRandomize_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.localRandomize_seedLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.localRandomize_viewLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.localRandomize_outputLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.map_equiv_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.joint_map_second' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.pi_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.pi_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.FiniteLaw.pi_replace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.switches_resample' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.average_resample' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.disj_fill' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.embed_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.embed_outputLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.embed_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.inputLaw_fill' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Switch.joint_fill_channel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.embed_branch_information' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.embed_informationCost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.coordinate_average_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.bjks_information_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.lowerBoundConstant_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.disjointness_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.finiteLowerBoundClaim' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Tree.depth_truncate_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Tree.run_truncate' depends on axioms: [propext]
+'Disjointness.Protocol.truncate_cost_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.truncate_outputLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.Protocol.truncate_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.disjointness_lower_bound_of_length' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.BoundedTree.depth_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.BoundedTree.toTree_encode' depends on axioms: [propext]
+'Disjointness.BoundedTree.protocol_cost_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.BoundedTree.protocol_outputLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.random_tape_disjointness_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Disjointness.random_tree_disjointness_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+Disjointness.disjointness_lower_bound.{u_1, u_2, u_3} {n : ℕ} {R : Type u_1} {SA : Type u_2} {SB : Type u_3} [Fintype R]
+  [Fintype SA] [Fintype SB] (p : Disjointness.Protocol (Disjointness.Bits n) (Disjointness.Bits n) R SA SB)
+  (hc : p.Correct Disjointness.disj (1 / 3)) : Disjointness.lowerBoundConstant * ↑n ≤ ↑p.cost
+Disjointness.disjointness_lower_bound_of_length.{u_1, u_2, u_3} {n : ℕ} {R : Type u_1} {SA : Type u_2} {SB : Type u_3}
+  [Fintype R] [Fintype SA] [Fintype SB] (p : Disjointness.Protocol (Disjointness.Bits n) (Disjointness.Bits n) R SA SB)
+  (c : ℕ) (h : ∀ (x y : Disjointness.Bits n) (r : R) (a : SA) (b : SB), ((p.tree r).run (x, a) (y, b)).1.length ≤ c)
+  (hc : p.Correct Disjointness.disj (1 / 3)) : Disjointness.lowerBoundConstant * ↑n ≤ ↑c
+Disjointness.random_tape_disjointness_lower_bound.{u_1} {Ω : Type u_1} [MeasurableSpace Ω] (μ : MeasureTheory.Measure Ω)
+  [MeasureTheory.IsProbabilityMeasure μ] {n c : ℕ}
+  (behavior : Ω → Disjointness.BoundedTree.Code (Disjointness.Bits n) (Disjointness.Bits n) c)
+  (hm : Measurable behavior)
+  (hc :
+    ∀ (x y : Disjointness.Bits n),
+      μ.real {ω | ((Disjointness.BoundedTree.toTree (behavior ω)).run x y).2 ≠ Disjointness.disj x y} ≤ 1 / 3) :
+  Disjointness.lowerBoundConstant * ↑n ≤ ↑c
+Disjointness.random_tree_disjointness_lower_bound.{u_1} {Ω : Type u_1} [MeasurableSpace Ω] (μ : MeasureTheory.Measure Ω)
+  [MeasureTheory.IsProbabilityMeasure μ] {n : ℕ}
+  (trees : Ω → Disjointness.Tree (Disjointness.Bits n) (Disjointness.Bits n)) (c : ℕ)
+  (hm : Measurable fun ω => Disjointness.BoundedTree.encode c (trees ω))
+  (hlen : ∀ (ω : Ω) (x y : Disjointness.Bits n), ((trees ω).run x y).1.length ≤ c)
+  (hc : ∀ (x y : Disjointness.Bits n), μ.real {ω | ((trees ω).run x y).2 ≠ Disjointness.disj x y} ≤ 1 / 3) :
+  Disjointness.lowerBoundConstant * ↑n ≤ ↑c
+def Disjointness.BoundedTree.Code : Type → Type → ℕ → Type :=
+fun X Y x => Nat.brecOn x (Disjointness.BoundedTree.Code._f X Y)

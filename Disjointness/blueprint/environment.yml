@@ -1,0 +1,10 @@
+name: lean-blueprint
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - graphviz=14.1.2
+  - pygraphviz=2.0.3
+  - pip:
+      - leanblueprint==0.0.20

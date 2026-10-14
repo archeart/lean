@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Lean: check project",
+    "command": "$HOME/.elan/bin/lake --wfail build",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Lean: build API docs",
+    "command": "./scripts/explore docs",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Lean: build blueprint",
+    "command": "./scripts/explore blueprint",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Lean: open explorer",
+    "command": "./scripts/explore open",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]

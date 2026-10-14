@@ -1,73 +1,66 @@
 # Status
 
-Updated 2026-10-14. **Phases 1–2 complete; Phase 3 next.**
+Updated 2026-10-14. **Phases 1–7 complete for the stated public-output tree models.**
 
-## Checked results
+## Proved endpoints
 
-`lake --wfail build` passes after cleaning this project's build output. All seven
-results in `Disjointness/Integration.lean` have only the ordinary foundational axioms
-`propext`, `Classical.choice`, and `Quot.sound` in their transitive dependencies:
+The explicit constant is `lowerBoundConstant = 1 / (144 * Real.log 2) > 0`.
+For every dimension, including zero, and worst-case error at most `1/3`:
 
-| Declaration (namespace `Disjointness.Integration`) | Checked mathematical content |
+- `Protocol.and_information_lower_bound`: one-coordinate AND information is at least `1/144` nats.
+- `Protocol.bjks_information_lower_bound`: `n / 144 ≤ J(Π)`.
+- `disjointness_lower_bound`: `n / (144 log 2) ≤ cost Π` for the finite-seed model.
+- `finiteLowerBoundClaim`: proves the original target proposition, with threshold `n₀ = 0`.
+- `disjointness_lower_bound_of_length`: the same bound for any uniform bound on actual execution lengths; unreachable deep branches do not weaken the result.
+- `random_tape_disjointness_lower_bound`: the same bound for measurable bounded deterministic behaviors selected from an arbitrary probability space, including atomless random tapes.
+- `random_tree_disjointness_lower_bound`: allows tape-indexed trees with unreachable deep branches; truncation and finite behavior encoding preserve execution within the given length bound.
+
+The information chain is checked end to end:
+
+`n / 144 ≤ I((X,Y);T | D,R) ≤ cost Π * log 2`.
+
+## Where to review
+
+| Step | File and principal declarations |
 | --- | --- |
-| `pmf_chain_rule` | The entropy chain rule on PMF-derived measure spaces |
-| `pmf_condMutualInfo_nonneg` | Nonnegative conditional mutual information |
-| `pmf_condMutualInfo_le_log_card` | Information at most log of transcript alphabet size |
-| `pmf_condMutualInfo_eq_sum` | Finite averaging over a conditioning variable, including null events |
-| `pmf_condEntropy_pair_le` | Conditional entropy subadditivity for two variables |
-| `pmf_condMutualInfo_bitvec_le` | A `c`-bit-vector alphabet gives an upper bound `c * log 2` in nats |
-| `pmf_klDiv_eq_zero_iff` | Mathlib KL vanishes exactly when the two PMFs are equal |
+| Protocol semantics | `Protocol.lean`: `Tree.run`, `Protocol.Correct`, `Protocol.cost` |
+| Nonempty model | `SendInput.lean`: `sendInputProtocol_correct`, `sendInputProtocol_cost` |
+| Locality and rectangles | `Tree.lean`, `Factorization.lean`: `run_transcript_eq_iff`, `viewLaw_factorization` |
+| Switch law | `Switch.lean`: `law`, `law_map_triples`, `disj_of_mem_support`, conditional independence |
+| Information upper bound | `InformationCost.lean`, `ExecutionConditioning.lean`: `bjksInformationCost_le` |
+| Distance inequalities | `Hellinger.lean`: `sqDist_triangle`, `variation_sq_le`, `cut_and_paste`, `sqDist_le_two_jensenShannon` |
+| Exact information bridge | `BinaryInformation.lean`, `FiniteView.lean`, `ChannelBridge.lean`: `information_fair`, `informationCost_eq_channel` |
+| AND bound | `AndLowerBound.lean`: `and_information_lower_bound` |
+| Coordinate decomposition | `CoordinateInformation.lean`: `bjksInformationCost_ge_sum_coordinates` |
+| Actual embedded protocols | `LocalRandomization.lean`, `Embedding.lean`: `embed`, `embed_correct`, `embed_cost` |
+| Exact embedding laws | `ProductReplacement.lean`, `EmbeddingInformation.lean`: `inputLaw_fill`, `joint_fill_channel`, `embed_informationCost` |
+| Linear bounds | `LowerBound.lean`: `bjks_information_lower_bound`, `disjointness_lower_bound`, `finiteLowerBoundClaim` |
+| Normalization | `ReachableCost.lean`, `RandomTape.lean`: `run_truncate`, `toTree_encode`, random-tape endpoints |
 
-These reuse PFR/mathlib theorems. They establish dependency compatibility and a
-small part of the required adapters, not protocol information bounds.
+## Audit and reproduction
 
-`Protocol.lean` checks the tree/execution, independent seed sampling, output law,
-pointwise error, and cost definitions. `Target.lean` checks the syntax and types of
-the finite-model endpoint. `FiniteLowerBoundClaim` is a proposition definition,
-not a theorem or an assumed fact.
+`Audit.lean` prints the endpoint types and transitive axioms. Only `propext`,
+`Classical.choice`, and `Quot.sound` occur in the inspected proof chain. No
+`sorryAx`, mathematical project axiom, `admit`, or `native_decide` is used.
+See `audit.md`, `axioms.log`, and `clean-build.log` for the final checks.
+Dependencies remain pinned; no upgrades or additional installation were needed.
 
-## Checked protocol results (Phase 2)
+The API documentation and interactive blueprint are available through
+`./scripts/explore open`; rebuild them with `./scripts/explore build`.
 
-| Declaration | Mathematical content |
-| --- | --- |
-| `Tree.decode_run` | The public tree and bit transcript determine the output |
-| `Tree.run_length_le_depth` | Each execution uses at most the tree depth in transmitted bits |
-| `Tree.run_transcript_eq_iff` | A transcript fiber factors into Alice-only and Bob-only consistency conditions |
-| `Tree.transcript_cross` | Standard deterministic rectangle crossing property |
-| `Tree.run_mem_leafPaths`, `Tree.card_leafPaths_le` | Every execution is a leaf path; a depth-`c` tree has at most `2^c` such paths |
-| `Protocol.privateTranscriptLaw_factorization` | Fixed-public-seed transcript probabilities equal `A(r,t,x) * B(r,t,y)` |
-| `Protocol.viewLaw_apply`, `Protocol.viewLaw_factorization` | The joint public-seed/transcript law agrees with execution and includes the public-seed probability factor |
-| `Protocol.privateTranscriptLaw_support`, `Protocol.card_leafPaths_le_cost` | A uniform support bound for each public seed, independent of the seed cardinality |
-| `sendInputProtocol_correct`, `sendInputProtocol_cost` | A concrete zero-error DISJ protocol of cost `n+1` for every `n` |
+## Exact scope
 
-All of these follow from the definitions; rectangle structure and information
-bounds were not assumed as protocol fields. The send-input construction proves
-that the class of correct DISJ protocols is nonempty in every dimension. Its extra
-bit is Bob's public answer.
+Local communication is binary and interactive. Every internal node transmits one
+bit; speaker choice and stopping are determined by the public tree and history.
+The output is the reached leaf label. Correctness averages over randomness and
+holds separately on every input. Random bits are free.
 
-## Milestone evidence
+The finite theorem has no bound on seed cardinalities or seed probabilities.
+The random-tape theorem removes finite-randomness restrictions by a proved finite
+behavior pushforward; its explicit hypothesis is measurability of that behavior.
+The length bound holds for every tape and input, rather than only almost surely.
 
-- Lean v4.35.0-rc4 installed with exact PFR/mathlib revisions and a transitive lockfile.
-- The imported PFR modules compiled against cached mathlib dependencies.
-- A clean rebuild of the seven project modules passed with warnings treated as failures.
-- `Audit.lean` prints the exact target and the axiom sets; see `axioms.log`.
-- `blueprint.md` fixes the dependency graph, key interfaces, candidate constants,
-  and open protocol-model bridges. `decisions.md` records the representation choice.
-
-## Human audit focus
-
-Read `Target.lean` and the endpoint/model section of `blueprint.md`. In particular,
-cost currently means maximum tree depth, and all random-seed laws are finite. The
-bridges to conventional worst-case communication and arbitrary random tapes are
-named outstanding obligations; no conventional public-coin theorem is claimed yet.
-
-## Next action
-
-Phase 3: construct the switch/input law, prove its conditional independence properties,
-define the exact protocol information cost `J`, and connect the leaf support bounds
-to `J ≤ cost * log 2` without charging public randomness.
-
-## Unproved obligations
-
-The switch distribution properties, the protocol information upper bound, Hellinger/AND lower bound,
-coordinate embeddings, DISJ lower bound, and conventional-model bridges remain unproved.
+A translation from a particular machine-level protocol language is not formalized.
+Neither is the separate convention where only one player knows the answer: that
+comparison requires a proved final-answer-bit simulation and its additive overhead.
+Expected communication, nonpublic stopping, and quantum protocols are outside scope.

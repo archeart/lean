@@ -31,6 +31,24 @@ theorem run_comap {A' B' : Type*} (t : Tree A B) (f : A' → A) (g : B' → B)
   | alice message zero one ihz iho => simp [comap, run, ihz, iho]
   | bob message zero one ihz iho => simp [comap, run, ihz, iho]
 
+/-- Change only the leaf labels, preserving the communicated transcript. -/
+def mapOutput (t : Tree A B) (f : Bool → Bool) : Tree A B :=
+  match t with
+  | .leaf b => .leaf (f b)
+  | .alice q z o => .alice q (z.mapOutput f) (o.mapOutput f)
+  | .bob q z o => .bob q (z.mapOutput f) (o.mapOutput f)
+
+@[simp] theorem depth_mapOutput (t : Tree A B) (f : Bool → Bool) :
+    (t.mapOutput f).depth = t.depth := by
+  induction t <;> simp_all [mapOutput, depth]
+
+@[simp] theorem run_mapOutput (t : Tree A B) (f : Bool → Bool) (a : A) (b : B) :
+    (t.mapOutput f).run a b = ((t.run a b).1, f (t.run a b).2) := by
+  induction t with
+  | leaf o => rfl
+  | alice q z o hz ho => cases h : q a <;> simp [mapOutput, run, h, hz, ho]
+  | bob q z o hz ho => cases h : q b <;> simp [mapOutput, run, h, hz, ho]
+
 /-- Publicly recover the output from a valid leaf transcript. -/
 def decode : Tree A B → List Bool → Option Bool
   | .leaf output, [] => some output
@@ -65,6 +83,14 @@ def leafPaths : Tree A B → Finset (List Bool)
   | .leaf _ => {[]}
   | .alice _ zero one => zero.leafPaths.image (false :: ·) ∪ one.leafPaths.image (true :: ·)
   | .bob _ zero one => zero.leafPaths.image (false :: ·) ∪ one.leafPaths.image (true :: ·)
+
+@[simp] theorem leafPaths_comap {A' B' : Type*} (t : Tree A B) (f : A' → A) (g : B' → B) :
+    (t.comap f g).leafPaths = t.leafPaths := by
+  induction t <;> simp_all [comap, leafPaths]
+
+@[simp] theorem leafPaths_mapOutput (t : Tree A B) (f : Bool → Bool) :
+    (t.mapOutput f).leafPaths = t.leafPaths := by
+  induction t <;> simp_all [mapOutput, leafPaths]
 
 /-- Executions always end at a leaf path. -/
 theorem run_mem_leafPaths (t : Tree A B) (a : A) (b : B) :

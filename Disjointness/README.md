@@ -2,11 +2,12 @@
 
 An experiment in formalizing the information-complexity proof of the randomized communication lower bound for set disjointness, with Codex carrying out most of the work and the human researcher auditing the results.
 
-**Status (2026-10-14): Phases 1–2 complete.** The pinned Lean project builds, seven dependency-integration
-results are checked, and the protocol structure, zero-error example, transcript factorization,
-and leaf bounds are proved. The DISJ lower bound
-is **not proved**. See [current status](docs/status.md), [blueprint](docs/blueprint.md), and
-[audit record](docs/audit.md).
+**Status (2026-10-14): Phases 1–7 complete for the stated public-output tree models.**
+The checked bound is `n / (144 * log 2)` bits at worst-case error `1/3`.
+The package proves the original finite-seed target, normalizes reachable execution
+lengths, and extends to arbitrary measurable random-tape probability spaces.
+See [status](docs/status.md), [the final audit](docs/audit.md), and
+[the proof correspondence](docs/blueprint.md) for exact statements and scope.
 
 ## Build and inspect
 
@@ -32,11 +33,11 @@ lake --wfail build
 lake lean Audit.lean
 ```
 
-The clean project rebuild and axiom inspection were run successfully; their outputs are
+The final clean project rebuild and axiom inspection were run successfully; their outputs are
 [clean-build.log](docs/clean-build.log) and [axioms.log](docs/axioms.log). The latest incremental
 build is also recorded in [build.log](docs/build.log). A fresh-machine/source-only
-reproduction remains part of the final audit. The 3187 reported build jobs include dependency
-and cached jobs, not 3187 newly proved project results.
+reproduction was not performed; the audit records that boundary. Reported build-job
+counts include dependency and cached jobs, not just project results.
 
 | File | What it currently supplies |
 | --- | --- |
@@ -45,8 +46,36 @@ and cached jobs, not 3187 newly proved project results.
 | `Disjointness/Tree.lean` | Public decoding, rectangle property, execution-length and leaf-count bounds |
 | `Disjointness/Factorization.lean` | Fixed-seed and joint transcript factorization; support/cost bounds |
 | `Disjointness/SendInput.lean` | An actual zero-error DISJ protocol of cost `n+1`, including its output bit |
-| `Disjointness/Target.lean` | DISJ definition and the named, **unproved** proposition `FiniteLowerBoundClaim` |
+| `Disjointness/ProbabilityTools.lean` | Finite joint/product laws, conditional fibers, and independence transport |
+| `Disjointness/Switch.lean` | BJKS switch/input law, exact marginal probabilities, disjoint support, conditional independence |
+| `Disjointness/InformationTools.lean` | Conditional chain rule, subadditivity, law invariance, and fiberwise entropy support bound |
+| `Disjointness/InformationCost.lean` | Actual protocol information cost; nonnegativity and communication upper bound |
+| `Disjointness/ExecutionConditioning.lean` | Conditional input law and independence after fixing both switches and public seed |
+| `Disjointness/Hellinger.lean`, `BinaryInformation.lean` | Distance inequalities and the binary information comparison |
+| `Disjointness/FiniteView.lean`, `ChannelBridge.lean` | Exact finite view and PFR information identities |
+| `Disjointness/AndLowerBound.lean` | AND conditional information at least `1/144` nats |
+| `Disjointness/CoordinateInformation.lean` | Finite-vector entropy and coordinate information inequality |
+| `Disjointness/LocalRandomization.lean`, `Embedding.lean`, `EmbeddingInformation.lean`, `ProductReplacement.lean` | Actual embedded protocols, correctness, and exact sampling/information identities |
+| `Disjointness/LowerBound.lean` | Linear information and communication lower bounds; proof of `FiniteLowerBoundClaim` |
+| `Disjointness/ReachableCost.lean`, `RandomTape.lean` | Reachable-length normalization and arbitrary measurable random-tape spaces |
+| `Disjointness/Target.lean` | DISJ and the target proposition, proved in `LowerBound.lean` |
 | `Audit.lean` | Target printing and transitive axiom inspection |
+
+## Explore the code
+
+Open this directory in Zed with the Lean 4 extension. The project includes Zed tasks
+for checking Lean, building API documentation, building the blueprint, and opening
+the explorer. Run tasks through `task: spawn` in Zed's command palette.
+
+```sh
+./scripts/explore open       # open the already-built local documentation
+./scripts/explore build      # rebuild API docs and the mathematical blueprint
+```
+
+The explorer serves API documentation, declaration search, a starter mathematical
+blueprint, and its dependency graph at `http://127.0.0.1:8000/`.
+See [tool setup and commands](docs/exploration.md) for details. Blueprint metadata
+lives in `Blueprint.lean`; the full mathematical plan remains in `docs/blueprint.md`.
 
 ## Purpose and working arrangement
 

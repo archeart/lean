@@ -1,188 +1,129 @@
-# BJKS proof blueprint
+# BJKS proof correspondence
 
-Status: proposed mathematical interfaces. Only results explicitly listed as checked in
-`status.md` are verified. This document does not declare any Lean axioms.
+The complete information argument and public-output tree-model communication
+lower bound are checked. `status.md` gives a review index and `audit.md` states
+the exact scope. This document describes proved results, not assumed axioms.
 
-The protocol and finite endpoint definitions below compile in `Protocol.lean`
-and `Target.lean`. Phase 2 has checked structural protocol theorems, transcript
-factorization/support, and a zero-error send-input example. The endpoint remains unproved.
+## Statement and model
 
-## Endpoint and protocol model
+For `Bits n := Fin n → Bool`, `disj x y` is true iff no coordinate is true in both
+inputs. For every finite-seed protocol with worst-case error at most `1/3`,
 
-For `Bits n := Fin n → Bool`, `disj x y` is true iff no coordinate is true in both inputs.
-The finite-model endpoint is:
+`(1 / (144 * log 2)) * n ≤ cost Π`.
 
-> There exist real `a > 0` and natural `n₀` such that for every `n ≥ n₀`, every
-> finite nonempty public seed type `R`, private seed types `SA` and `SB`, every
-> probability law `ρ : PMF R`, `α : PMF SA`, `β : PMF SB`, and every protocol `Π`
-> described below, pointwise error at most `1/3` implies `a * n ≤ cost Π`.
+The coefficient is positive, independent of all input dimensions, laws, and seed
+cardinalities. Dimension zero is included. `finiteLowerBoundClaim` proves the
+original existential target with `n₀ = 0`.
 
-The constants are chosen before all input dimensions, seed types, laws, and protocols.
-Seed cardinalities and probabilities are unrestricted. Real-valued arbitrary finite
-probabilities are allowed; no bound on random bits is imposed.
+A tree node is either a public Boolean leaf, an Alice node with an arbitrary
+Alice-local Boolean decision, or a Bob node with a Bob-local decision. Each edge
+transmits one bit. A public seed selects the tree, while independent private seeds
+are included in the players' local inputs. There is no restriction on interaction,
+local computation, or the amount of finite randomness.
 
-Executable representation:
-
-```text
-Tree A B
-  leaf(output : Bool)
-  alice(nextBit : A → Bool, zeroChild : Tree A B, oneChild : Tree A B)
-  bob(nextBit : B → Bool, zeroChild : Tree A B, oneChild : Tree A B)
-
-Π : R → Tree (Bits n × SA) (Bits n × SB)
-```
-
-The public seed chooses the tree. Each branch transmits exactly one bit. Local
-decision functions may depend arbitrarily on the player's input, private seed, and
-history, since the history is determined by the node. The next speaker and whether
-communication has ended are publicly determined by the tree and transcript; silent
-private signaling is not part of this model. The output is the leaf label.
-
-Execution samples `(r, sA, sB)` under the product law `ρ × α × β`, independently of
-the input and the analysis switches. The transcript is the bit path. Proposed cost
-is the maximum tree depth over public seeds, counting even unreachable branches.
-The latter requires a bridge: trim unreachable branches or represent a conventionally
-cost-`c` protocol by a tree of depth at most `c`. Do not equate this definition with
-maximum reachable length without proving the bridge. Zero-mass seeds can be removed
-when a conventional cost bound only applies on their support.
-
-`Correct Π f ε` means that **for every input pair** `(x,y)`, the probability of an
-incorrect leaf label is at most `ε`. This includes intersecting inputs.
-
-The conventional public-coin endpoint additionally requires a normalization theorem.
-For finite input sets and bounded communication there are finitely many deterministic
-communication behaviors. The proposed route is to group arbitrary random tapes by
-their induced behavior, yielding a finite law without increasing cost or error.
-Formalize the source protocol/tape model and this map before claiming coverage.
-Turning private tapes into additional public tapes preserves execution behavior when
-the players ignore the newly visible tapes, but the relevant simulation also needs
-a proof. This is an open obligation, not a normalization assumption.
-
-If only a designated player knows the answer in a source model, transmit its answer
-as one additional bit. Then absorb the additive one into a smaller linear constant
-and an explicit threshold. Our primary tree model already has a public leaf output.
+`ReachableCost.lean` trims unreachable deep branches without changing any execution
+within a stated length bound. `RandomTape.lean` groups arbitrary random tapes by a
+finite bounded behavior code and preserves error via an exact measure pushforward.
+Its endpoint allows arbitrary probability spaces and assumes measurability of the
+bounded behavior. Public leaf output remains the chosen convention.
 
 ## Distribution and information
 
-For each coordinate independently, choose fair bits `(Dᵢ,Uᵢ)` and set
+Each coordinate has a fair hidden analysis switch. A false switch fixes Alice's
+bit to zero and samples Bob's bit fairly; a true switch reverses the roles.
+The resulting marginal masses for `00,01,10,11` are `1/2,1/4,1/4,0`.
+`Switch.law_map_triples` proves independent coordinate triples, and the conditional
+laws give both player and coordinate independence. Every supported input is disjoint.
 
-```text
-Dᵢ = false: (Xᵢ,Yᵢ) = (false,Uᵢ)
-Dᵢ = true:  (Xᵢ,Yᵢ) = (Uᵢ,false).
-```
+The protocol never receives these switches. Its external conditional information
+is the actual PFR quantity `J = I((X,Y);T | D,R)` in nats. Leaf support bounds on
+individual public-tree fibers give `J ≤ cost * log 2` with no public-seed entropy
+charge. Null public seeds contribute zero.
 
-Thus `(0,0),(0,1),(1,0),(1,1)` have probabilities `1/2,1/4,1/4,0`.
-This law is a definition; its support and independence properties must be proved.
-Use finite `PMF` sampling and `PMF.toMeasure` to supply PFR's random-variable API.
-The full sample space also contains independent public and private protocol seeds.
+`FiniteView.lean` represents a view as a public seed paired with a leaf path.
+`informationCost_eq_channel` proves `J = I((X,Y);(R,T) | D)` in a finite channel
+presentation, using independence to move `R`. All subsequent channel calculations
+therefore concern the original execution information.
 
-Define `J Π := condMutualInfo (X,Y) T (D,R) μ`, in natural logarithm units.
-`D` is never an argument of original protocol execution. In particular, revealing
-the whole switch vector to the original protocol would change the theorem.
+## AND argument
 
-Zero-probability conditioning events contribute zero to the finite conditional
-information sum. PFR's conditioning convention handles them via the zero measure.
-Probability-measure hypotheses remain explicit at every use of entropy identities.
+The squared distance is `h²(P,Q) = (1/2) Σ(√P-√Q)²`.
+`Hellinger.lean` proves the following facts directly from finite real masses:
 
-## Dependency graph
+1. Squared triangle: `h²(P,R) ≤ 2 h²(P,Q) + 2 h²(Q,R)`.
+2. The transcript rectangle identity implies `h²(L00,L11) = h²(L01,L10)`.
+3. Total variation satisfies `TV² ≤ 2 h²` and bounds every event-probability difference.
+4. A scalar logarithm inequality gives `h²(P,Q) ≤ 2 JS(P,Q)`.
+
+`BinaryInformation.information_fair` (namespace `Disjointness.Channel`) identifies
+`JS` with PFR mutual information of a fair binary selector. Averaging the two switch
+branches yields
+
+`h²(L00,L11) ≤ 8 J_AND`.
+
+Correctness of the joint public-seed/transcript laws gives `TV(L00,L11) ≥ 1/3`,
+including correctness at the zero-analysis-mass input `11`. Consequently
+`J_AND ≥ 1/144` nats. This is `Protocol.and_information_lower_bound`.
+
+## Coordinates and actual embeddings
+
+`condEntropy_vector_le` proves finite-vector conditional entropy subadditivity.
+Together with PFR entropy additivity for independent coordinates it gives
+`bjksInformationCost_ge_sum_coordinates`.
+
+For each coordinate and fixed padding-switch vector, `Protocol.embed` is an actual
+AND protocol. It samples independent switch-conditioned private padding, inserts
+the actual two input bits at the distinguished coordinate, executes the original
+DISJ protocol, and negates the leaf output. Its communication is unchanged.
+The selected-coordinate padding is overwritten; the selected hidden switch is
+never available to the protocol.
+
+Holding the other switches as public parameters and averaging afterward is the
+implemented version of publicly sampling the padding switches. It avoids a larger
+public-seed type while proving the same averaged inequality. `embed_correct`
+checks all four inputs. `inputLaw_fill` and `joint_fill_channel` establish exact
+product and joint laws. `embed_informationCost` identifies the embedded cost as
+the average of the two selected-switch coordinate terms. `average_resample`
+proves that averaging this identity preserves the full switch average.
+
+Applying the AND bound to every embedded protocol and summing gives
+`Protocol.bjks_information_lower_bound : n / 144 ≤ J`.
+The upper bound on `J` yields `disjointness_lower_bound` by division by `log 2`.
+
+## Dependency map
 
 ```mermaid
 graph TD
-  P[Protocol execution and correctness] --> F[Transcript factorization]
-  P --> L[Prefix-free leaves and support bound]
-  E[PFR entropy adapters] --> U[J at most cost times log 2]
-  L --> U
-  F --> C[Hellinger cut-and-paste]
-  H[Finite Hellinger inequalities] --> C
-  H --> M[Binary mutual information to Hellinger]
-  P --> S[Correctness separates joint public-seed/transcript laws]
-  C --> A[AND conditional information bound]
-  M --> A
+  P[Local protocol execution] --> F[Rectangles and factorization]
+  P --> L[Leaf support bound]
+  L --> U[J at most cost times log 2]
+  F --> C[Hellinger cut and paste]
+  H[Finite distance and logarithm inequalities] --> A[AND information at least 1/144]
+  C --> A
+  P --> S[Worst-case correctness separation]
   S --> A
-  D[Switch law and conditional independence] --> Q[Coordinate information inequality]
-  E --> Q
-  D --> B[Actual coordinate protocols and distribution identities]
+  D[Switch product law] --> Q[Coordinate information inequality]
+  D --> B[Actual embedded protocols and exact laws]
   P --> B
-  A --> N[J at least kappa times n]
+  A --> N[J at least n/144]
   Q --> N
   B --> N
-  U --> T[Finite-model communication lower bound]
-  N --> T
-  T --> V[Conventional public-coin theorem]
-  W[Normalization and output-overhead bridges] --> V
+  N --> T[Finite DISJ lower bound]
+  U --> T
+  T --> R[Reachable-length lower bound]
+  T --> V[Arbitrary random-tape tree lower bound]
+  W[Truncation and finite behavior encoding] --> R
+  W --> V
 ```
 
-## Required statements and available interfaces
+## Scope boundaries
 
-| Step | Precise obligation | Source / implementation status |
-| --- | --- | --- |
-| Entropy | Chain and conditional chain rules, nonnegative conditional information | PFR `chain_rule`, `cond_chain_rule`, `condMutualInfo_nonneg` |
-| Averaging | `I(X;Y\|Z) = Σ_z Pr[Z=z] I(X;Y under Z=z)` | PFR `condMutualInfo_eq_sum'` |
-| Re-expression | `I(X;Y\|Z) = H(X\|Z) - H(X\|Y,Z)` | PFR `condMutualInfo_eq'` |
-| Conditional subadditivity | `H(A,B\|Z) ≤ H(A\|Z)+H(B\|Z)` | Two-variable adapter checked in `Integration.lean`; finite-family extension remains |
-| Independent coordinates | `H((Xᵢ,Yᵢ)ᵢ\|D,R) = Σᵢ H(Xᵢ,Yᵢ\|D,R)` | Prove law/conditional independence; adapt PFR results |
-| Law invariance | Joint-law equality preserves the information quantities used in embeddings | PFR entropy/conditional-entropy `IdentDistrib` results; conditional information adapter needed |
-| Rectangle structure | For fixed `r,t`, the execution fiber in augmented inputs is a rectangle | Checked: `Tree.run_transcript_eq_iff` |
-| Factorization | `Pr[T=t\|x,y,r] = A(r,t,x) B(r,t,y)` | Checked: `Protocol.privateTranscriptLaw_factorization` and joint-law identity |
-| Support | For each `r`, possible leaf transcripts number at most `2^(cost Π)` | Checked: `Protocol.privateTranscriptLaw_support`, `Protocol.card_leafPaths_le_cost` |
-| Communication bound | `J Π ≤ cost Π * log 2` | Average support entropy bounds for each `r`; do not bound the entire `(R,T)` alphabet |
-| AND statistics | Cut-and-paste, distance inequalities, and binary information bound | New finite analytic layer, using mathlib where possible |
-| Embedding | A valid AND protocol for each coordinate, with exact law and information identities | New construction using public other-coordinate switches and private padding |
-| Assembly | `κ*n ≤ J Π`, then the protocol communication bound | New composition of the preceding checked theorems |
-| Model coverage | Arbitrary conventional randomness and private-output conventions | Open normalization obligations |
+No protocol is assumed to possess the lower-bound properties it needs.
+Factorization, support, independence, information comparisons, correctness of
+embeddings, and distribution identities are proved. The final axiom audit contains
+only Lean's ordinary foundational axioms.
 
-No information lower bound, rectangle property, or support bound may appear as a
-field in the protocol definition. These must be consequences of execution.
-
-## AND bound, normalization, and candidate constants
-
-For finite probability laws use
-`h²(P,Q) := (1/2) * Σ_t (sqrt(P t) - sqrt(Q t))²` and
-`TV(P,Q) := (1/2) * Σ_t |P t - Q t|`.
-
-Let `L_ab` be the law of the **pair `(R,T)`** on fixed input `(a,b)`. The public-seed
-marginal is the same for all four laws. Distances between these laws equal the
-appropriately weighted sums of squared distances at fixed public seed. The proposed
-inequalities, to be checked in Lean, are:
-
-1. For a fair binary input, information in nats is at least `h²(P,Q)/2`.
-   One route is the Jensen–Shannon identity, `KL(P||M) ≥ 2h²(P,M)` for
-   `M=(P+Q)/2`, and a squared triangle inequality. Prove absolute continuity to
-   the mixture before using finite real KL expressions.
-2. Averaging over the switch and public seed gives
-   `J_AND ≥ (h²(L_00,L_01)+h²(L_00,L_10))/4`.
-3. The squared triangle inequality and cut-and-paste give
-   `J_AND ≥ h²(L_00,L_11)/8`.
-4. Correctness at error `1/3` gives `TV(L_00,L_11) ≥ 1/3`.
-   Together with `TV² ≤ 2h²`, this gives `h²(L_00,L_11) ≥ 1/18`.
-
-Thus `κ = 1/144` nats is a conservative **candidate**, not a checked constant yet.
-It would yield `a = 1/(144*log 2)` in the primary finite tree model. Constants may
-be reduced if the proved inequalities require it; positivity matters, optimality does not.
-
-Correctness is used on joint `(R,T)` laws, not asserted separately for every public
-seed. At fixed `r` only structural factorization/cut-and-paste is required.
-
-## Coordinate embeddings
-
-For coordinate `i`, the embedded public seed is `(R,D_{-i})`. Each player uses a fresh
-private array of fair bits to fill its side of all padding coordinates according to
-the public switches, and its original private seed to simulate `Π`. The coordinate
-`i` is replaced by the actual AND input. Complement the DISJ leaf output.
-
-The distinguished `Dᵢ` exists only in the law defining the embedded information cost.
-Prove the identity
-`J(embedded Π i) = I((Xᵢ,Yᵢ);T | D,R)`
-by equality of the relevant joint distributions and reindexing the switch vector.
-Padding depends only on permitted information. Correctness holds on all four AND
-inputs because all padding is disjoint, including when the distinguished pair is `(1,1)`.
-
-## Paper correspondence
-
-[BJKS (2004)](https://people.seas.harvard.edu/~madhusudan/courses/Spring2016/papers/BJKS.pdf):
-Section 4 defines conditional information cost; Lemma 5.1 is coordinate decomposition;
-Lemma 5.5 constructs the primitive reductions; Section 6 proves the AND bound;
-Lemma 6.7 supplies transcript factorization. Our explicit public-seed conditioning,
-natural-log units, complemented DISJ convention, and positive-at-`1/3` separation
-estimate are deliberate adaptations. We do not use the optimal-protocol minimum
-as an intermediate definition.
+The public-output local-tree models are explicit. Translation from another
+machine syntax and the additional-bit conversion for private-only output are not
+part of this theorem package. Neither are almost-sure or expected communication
+bounds. See the final audit before comparing to a differently defined complexity measure.

@@ -71,3 +71,66 @@ Factorization is first stated in nonnegative extended-real probability units, ma
 PMF's range. Any conversion to real masses for Hellinger must use PMF finiteness.
 The public-seed joint law is connected explicitly to the fixed-seed law so that later
 correctness comparisons can average over public randomness.
+
+## 2026-10-14 — Phase 3 probability and information interfaces
+
+Define the switch law by finite conditional PMFs: fair switches, then a product
+of Alice and Bob input laws. Prove that this is also a product over coordinate
+triples. This exposes both the player independence needed for implementable
+padding and the coordinate independence needed for information decomposition.
+`ProbabilityTools.lean` supplies finite joint and product laws and their measured
+conditional-fiber identities; PFR remains the entropy implementation.
+
+Keep transcripts as `List Bool` with finite range. Bound their entropy on each
+`(D,R)` fiber using the existing leaf sets, instead of introducing a fixed-length
+encoding. The resulting bound is exactly `cost * log 2`, with no length or seed
+entropy overhead. State it for any finite input/analysis law, then specialize to
+BJKS. Explicitly prove that fixing the public seed preserves the conditional input
+law and that null public-seed fibers have zero conditional measure.
+
+No target, model restriction, constant, dependency version, or resource boundary
+was changed in Phase 3. Finite-family entropy sums and actual coordinate embeddings
+remain Phase 5 work.
+
+## 2026-10-14 — Phase 4 finite Hellinger argument
+
+Use squared Hellinger distance with normalization one half. Prove the scalar
+logarithmic inequality and Jensen–Shannon comparison directly, avoiding an
+unnecessary conversion between two KL APIs. All information expressions remain
+PFR mutual information. The resulting AND constant is `1/144` nats.
+
+Encode observations as a public seed paired with a leaf path of its tree. This
+alphabet is finite, and its law is proved equal to the existing protocol view.
+Independence permits moving the public seed from conditioning into the observed
+view without adding an entropy charge. Correctness remains averaged over seeds.
+
+For Phase 5, use a family of actual embedded protocols with the other switches
+fixed as public parameters, then average their information costs over those
+parameters. This is the same public-switch padding argument with the public
+mixture postponed to the proof; each embedded protocol still has independent
+private padding and does not know the selected coordinate's analysis switch.
+
+## 2026-10-14 — Phases 5–7 assembly and normalization
+
+Keep the conservative AND constant `1/144` nats. The checked communication
+constant is `1/(144*log 2)` with threshold zero. No optimization is attempted.
+
+The coordinate terms use the finite `(R,T)` view after the proved channel bridge.
+Actual private-padding protocols, their correctness, and their exact joint-law
+identities are all implemented. Fixing the other switches as public parameters
+and then averaging avoids extra public-seed bookkeeping without assuming any
+correctness for a fixed original protocol seed.
+
+Resolve the tree-depth/reachable-length issue with proved truncation. Also encode
+bounded deterministic local trees in a finite behavior type and push arbitrary
+random-tape probability measures onto it. This removes the finite-randomness
+restriction for the explicit measurable random-tree source model, including
+atomless tape spaces. Keep measurability and the bound for every tape/input
+explicit in the endpoint. Public leaf output remains the agreed convention;
+a private-output simulation is outside the claimed theorem.
+
+Perform a semantic review after endpoint compilation, then a clean project build,
+transitive axiom inspection, source check, and documentation rebuild. The review
+uses the same agent, not an independent second reviewer. Retain pinned dependency
+caches and describe that reproduction boundary accurately. No dependency upgrade,
+additional package installation, subagent, paid credit purchase, or reset is used.

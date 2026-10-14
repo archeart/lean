@@ -1,0 +1,162 @@
+#!/usr/bin/env python3
+"""Build and browse this project's Lean documentation on localhost."""
+
+import argparse
+import functools
+import html
+import http.server
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+import webbrowser
+
+ROOT = Path(__file__).resolve().parents[1]
+TOOLS = ROOT.parent / ".tools" / "blueprint" / "bin"
+DOCS = ROOT / "docbuild" / ".lake" / "build" / "doc"
+STATE = ROOT / ".explore"
+SITE = STATE / "site"
+ENV = os.environ.copy()
+ENV["PATH"] = os.pathsep.join([str(TOOLS), str(Path.home() / ".elan/bin"), ENV["PATH"]])
+
+
+def run(args, cwd=ROOT, **extra_env):
+    print("+", " ".join(map(str, args)), flush=True)
+    subprocess.run(list(map(str, args)), cwd=cwd, env=ENV | extra_env, check=True)
+
+
+def build_docs():
+    run(["lake", "build", "Disjointness:docs"], ROOT / "docbuild", DOCGEN_SRC="file")
+    # Browsers restrict file:// links from HTTP pages. Serve local Lean source
+    # alongside the docs instead; upstream Lean's GitHub links stay intact.
+    pattern = re.compile(r'''href=(["'])file://([^"']+)\1''')
+
+    def local_source(match):
+        path = Path(urllib.parse.unquote(html.unescape(match[2])))
+        try:
+            relative = path.relative_to(ROOT)
+        except ValueError:
+            return match[0]
+        return 'href="/source/' + urllib.parse.quote(str(relative)) + '"'
+
+    for page in DOCS.rglob("*.html"):
+        before = page.read_text()
+        after = pattern.sub(local_source, before)
+        if before != after:
+            page.write_text(after)
+
+
+def build_blueprint():
+    if not (TOOLS / "plastex").is_file():
+        raise SystemExit("Blueprint tools are missing. See docs/exploration.md.")
+    run(["lake", "build", "Blueprint:blueprint", "Blueprint:blueprintJson"])
+    # leanblueprint's CLI assumes the Lake project is at the Git root. This
+    # project is nested, so invoke its documented plasTeX plugin directly.
+    run([TOOLS / "plastex", "-c", "plastex.cfg", "web.tex"], ROOT / "blueprint/src")
+    run(["lake", "exe", "checkdecls", "blueprint/lean_decls"])
+
+
+def prepare_site():
+    for path in [DOCS / "index.html", ROOT / "blueprint/web/index.html"]:
+        if not path.is_file():
+            raise SystemExit(f"Missing {path}. Run ./scripts/explore build first.")
+    SITE.mkdir(parents=True, exist_ok=True)
+    for name, target in {"docs": DOCS, "blueprint": ROOT / "blueprint/web", "source": ROOT}.items():
+        link = SITE / name
+        if not link.is_symlink():
+            link.symlink_to(target, target_is_directory=True)
+    (SITE / "index.html").write_text(
+        '<!doctype html><meta charset="utf-8"><title>Disjointness explorer</title>'
+        '<style>body{font:18px system-ui;max-width:780px;margin:70px auto;line-height:1.6}'
+        'a{color:#245bb4}li{margin:15px 0}</style>'
+        '<h1>Disjointness explorer</h1>'
+        '<p>Checked BJKS information proof: DISJ requires at least n / (144 log 2) communicated bits in the stated public-output tree models.</p>'
+        '<ul><li><a href="/docs/Disjointness.html">Browse the Lean API</a></li>'
+        '<li><a href="/docs/search.html">Search declarations</a></li>'
+        '<li><a href="/blueprint/">Read the mathematical blueprint</a></li>'
+        '<li><a href="/blueprint/dep_graph_document.html">Explore the dependency graph</a></li>'
+        '<li><a href="/source/docs/exploration.md">Tool instructions</a></li></ul>'
+    )
+
+
+class Handler(http.server.SimpleHTTPRequestHandler):
+    extensions_map = http.server.SimpleHTTPRequestHandler.extensions_map | {
+        ".lean": "text/plain; charset=utf-8", ".md": "text/plain; charset=utf-8"
+    }
+
+    def do_GET(self):
+        if self.path == "/__disjointness_explorer__":
+            data = str(ROOT).encode()
+            self.send_response(200)
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+        else:
+            super().do_GET()
+
+
+def is_running(port):
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/__disjointness_explorer__", timeout=1) as response:
+            return response.read().decode() == str(ROOT)
+    except (urllib.error.URLError, TimeoutError):
+        return False
+
+
+def serve(port):
+    prepare_site()
+    handler = functools.partial(Handler, directory=str(SITE))
+    with http.server.ThreadingHTTPServer(("127.0.0.1", port), handler) as server:
+        print(f"Explorer: http://127.0.0.1:{port}/ (Ctrl-C to stop)", flush=True)
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            pass
+
+
+def open_site(port, browse=True):
+    prepare_site()
+    if not is_running(port):
+        with (STATE / "server.log").open("a") as log:
+            child = subprocess.Popen(
+                [sys.executable, str(Path(__file__).resolve()), "serve", "--port", str(port)],
+                stdout=log, stderr=log, start_new_session=True,
+            )
+        (STATE / "server.pid").write_text(str(child.pid))
+        for _ in range(40):
+            if is_running(port):
+                break
+            if child.poll() is not None:
+                raise SystemExit(f"Could not start server; see {STATE / 'server.log'}")
+            time.sleep(0.1)
+        else:
+            raise SystemExit(f"Server did not become ready; see {STATE / 'server.log'}")
+    url = f"http://127.0.0.1:{port}/"
+    print(url)
+    if browse:
+        webbrowser.open(url)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("command", choices=["build", "docs", "blueprint", "serve", "open"])
+    parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument("--no-browser", action="store_true", help="start the server without launching a browser")
+    args = parser.parse_args()
+    if args.command in ["build", "docs"]:
+        build_docs()
+    if args.command in ["build", "blueprint"]:
+        build_blueprint()
+    if args.command == "serve":
+        serve(args.port)
+    elif args.command == "open":
+        open_site(args.port, browse=not args.no_browser)
+
+
+if __name__ == "__main__":
+    main()

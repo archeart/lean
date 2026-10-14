@@ -10,8 +10,8 @@ Public history is represented by the current tree node. Local decisions only see
 the player's own augmented input. Random seeds have arbitrary finite laws.
 
 This file defines the model for review. `Tree.lean` and `Factorization.lean` prove
-rectangle structure and transcript support. The relationship to conventional
-random-tape protocols remains an open normalization obligation.
+rectangle structure and transcript support. `ReachableCost.lean` proves the execution-length normalization, and
+`RandomTape.lean` proves an extension to arbitrary measurable random-tape spaces.
 -/
 
 @[expose] public section
@@ -83,7 +83,7 @@ def Correct (p : Protocol X Y R SA SB) (f : X → Y → Bool) (ε : ℝ) : Prop 
   ∀ x y, p.error f x y ≤ ε
 
 /-- Uniform tree-depth bound, including all public seeds and tree branches.
-The bridge from a bound on reachable transcripts is a separate obligation. -/
+`ReachableCost.lean` proves the bridge from a bound on reachable transcripts. -/
 def cost [Fintype R] (p : Protocol X Y R SA SB) : ℕ :=
   Finset.univ.sup fun r ↦ (p.tree r).depth
 

@@ -6,6 +6,9 @@
 .env.*
 !.env.example
 .tools/
+__pycache__/
 Disjointness/blueprint/web/
 Disjointness/blueprint/print/
+Disjointness/blueprint/src/*.paux
+Disjointness/blueprint/lean_decls
 Disjointness/.explore/
