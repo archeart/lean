@@ -72,7 +72,7 @@ the explorer. Run tasks through `task: spawn` in Zed's command palette.
 ./scripts/explore build      # rebuild API docs and the mathematical blueprint
 ```
 
-The explorer serves API documentation, declaration search, a starter mathematical
+The explorer serves API documentation, declaration search, a mathematical
 blueprint, and its dependency graph at `http://127.0.0.1:8000/`.
 See [tool setup and commands](docs/exploration.md) for details. Blueprint metadata
 lives in `Blueprint.lean`; the full mathematical plan remains in `docs/blueprint.md`.

@@ -1,0 +1,16 @@
+name = "compression"
+version = "0.1.0"
+defaultTargets = ["BBCR"]
+packagesDir = "../Disjointness/.lake/packages"
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+warn.sorry = true
+
+[[require]]
+name = "disjointness"
+path = "../Disjointness"
+
+[[lean_lib]]
+name = "BBCR"
